@@ -1,18 +1,24 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
-var app = express();
+var app = express();.
+
+//environment variable's port. We have to make it dynamic to use it with heroku
+const port = process.env.PORT || 3000;
 
 //code to set the directory for partials. Partials are
 //peiece of code which is redundant ex header and footer
 hbs.registerPartials(__dirname+'/views/partials');
+
 //view folder is to be created
 app.set('view engine', 'hbs');
+
 //helper functions helps in sharing data with the web pages
 //we can simply use it in our pages as {{year}}
 hbs.registerHelper('year',()=>{
   return new Date().getFullYear();
 });
+
 //this is used to create a log file
 app.use((req,res,next)=>{
   var now = new Date().toString();
@@ -25,15 +31,9 @@ app.use((req,res,next)=>{
   next();
 });
 
-
-app.use((req,res,next)=>{
-  res.render('maintenance.hbs');
-});
-// app.get('/',(req,res) => {
-//   res.send({
-//     name: 'Salman',
-//     likes:['Biking','Fishing']
-//   });
+//commented out code for maintenance
+// app.use((req,res,next)=>{
+//   res.render('maintenance.hbs');
 // });
 
 app.get('/bad',(req,res) =>{
@@ -45,4 +45,6 @@ app.get('/', (req,res)=> {
     pageTitle: 'Welcome',
   });
 });
-app.listen(3000);
+app.listen(port, ()=>{
+  console.log('Server is on port'+port);
+});
