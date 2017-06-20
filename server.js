@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
-var app = express();.
+var app = express();
 
 //environment variable's port. We have to make it dynamic to use it with heroku
 const port = process.env.PORT || 3000;
