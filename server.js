@@ -10,8 +10,11 @@ const port = process.env.PORT || 3000;
 //peiece of code which is redundant ex header and footer
 hbs.registerPartials(__dirname+'/views/partials');
 
+
 //view folder is to be created
 app.set('view engine', 'hbs');
+
+app.use(express.static(__dirname+'/public'));
 
 //helper functions helps in sharing data with the web pages
 //we can simply use it in our pages as {{year}}
@@ -42,9 +45,22 @@ app.get('/bad',(req,res) =>{
 
 app.get('/', (req,res)=> {
   res.render('home.hbs',{
-    pageTitle: 'Welcome',
+    pageTitle: 'Welcome to a sample Node Web Server mini website',
   });
 });
+
+app.get('/about', (req, res) => {
+  res.render('about.hbs', {
+    pageTitle: 'About Page'
+  });
+});
+
+app.get('/project', (req, res) => {
+  res.render('project.hbs', {
+    pageTitle: 'Portfolio Page'
+  });
+});
+
 app.listen(port, ()=>{
   console.log('Server is on port'+port);
 });
